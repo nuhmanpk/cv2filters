@@ -33,36 +33,8 @@ from cv2filters import Filters
 filters = Filters()
 ```
 
-or
-
-```python
-from cv2filters.filters import <function-to-be-used>
-```
-
-
 Now you can use the various filtering functions available in the library. For example, let's show how to use the increase_brightness and apply_blur functions:
 
-```python
-from cv2filters.filters import increase_brightness, apply_blur
-import cv2
-
-image = cv2.imread('image.jpg')
-
-# Increase brightness of the image
-brightened_image = increase_brightness(image, value=50)
-
-# Apply blur to the image
-blurred_image = apply_blur(image, kernel_size=5)
-
-# Display the results
-cv2.imshow('Original Image', image)
-cv2.imshow('Brightened Image', brightened_image)
-cv2.imshow('Blurred Image', blurred_image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-```
-
-* Note: Make sure to replace 'image.jpg' with the path to your actual image file.
 
 Create an instance of the Filters class and then call the desired methods on the instance. For example:
 
