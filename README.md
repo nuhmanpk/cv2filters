@@ -4,6 +4,15 @@ CV2Filters a powerful Python package designed as a wrapper around OpenCV, the po
 
 CV2Filters empowers users to harness the power of OpenCV in a simplified and intuitive manner. By abstracting away the complexities, the package enables a broader audience to explore image processing, drive innovation, and unlock new possibilities in the field of computer vision.
 
+[![Downloads](https://static.pepy.tech/personalized-badge/cv2filters?period=total&units=international_system&left_color=grey&right_color=yellow&left_text=Total-Downloads)](https://pepy.tech/project/cv2filters)
+![PyPI - Format](https://img.shields.io/pypi/format/cv2filters)
+[![GitHub license](https://img.shields.io/github/license/nuhmanpk/cv2filters.svg)](https://github.com/nuhmanpk/cv2filters/blob/main/LICENSE)
+[![Upload Python Package](https://github.com/nuhmanpk/cv2filters/actions/workflows/publish.yml/badge.svg)](https://github.com/nuhmanpk/cv2filters/actions/workflows/publish.yml)
+[![Supported Versions](https://img.shields.io/pypi/pyversions/cv2filters.svg)](https://pypi.org/project/cv2filters)
+![PyPI](https://img.shields.io/pypi/v/cv2filters)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/cv2filters)
+[![Downloads](https://static.pepy.tech/personalized-badge/cv2filters?period=week&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads/Week)](https://pepy.tech/project/cv2filters)
+
 ## Installation
 
 [Refer Example](https://github.com/nuhmanpk/cv2filters/wiki) 
