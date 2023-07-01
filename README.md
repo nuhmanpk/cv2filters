@@ -6,6 +6,8 @@ CV2Filters empowers users to harness the power of OpenCV in a simplified and int
 
 ## Installation
 
+[Refer Exmaple](https://github.com/nuhmanpk/cv2filters/wiki) 
+
 To install the library, you can use pip:
 
 ```shell
@@ -27,6 +29,7 @@ or
 ```python
 from cv2filters.filters import <function-to-be-used>
 ```
+
 
 Now you can use the various filtering functions available in the library. For example, let's show how to use the increase_brightness and apply_blur functions:
 
