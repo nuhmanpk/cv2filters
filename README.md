@@ -6,7 +6,7 @@ CV2Filters empowers users to harness the power of OpenCV in a simplified and int
 
 ## Installation
 
-[Refer Exmaple](https://github.com/nuhmanpk/cv2filters/wiki) 
+[Refer Example](https://github.com/nuhmanpk/cv2filters/wiki) 
 
 To install the library, you can use pip:
 
