@@ -7,7 +7,7 @@ README = (file / "README.md").read_text()
 
 setuptools.setup(
     name="cv2filters",
-    version="0.1.2",
+    version="0.1.3",
     author="Nuhman Pk",
     author_email="nuhmanpk7@gmail.com",
     long_description = README,
@@ -17,6 +17,10 @@ setuptools.setup(
     url="https://github.com/nuhmanpk/cv2filters",
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],

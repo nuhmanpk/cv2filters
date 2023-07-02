@@ -147,7 +147,7 @@ This method applies morphological opening to an image to remove noise and small 
 16. **closing**(image: np.ndarray, kernel: np.ndarray = None, iterations: int = 2) -> np.ndarray:
 This method applies morphological closing to an image to close small holes.
 
-17. **hi1ghlight_box**(image: np.ndarray, box: Tuple[int, int, int, int]) -> np.ndarray:
+17. **highlight_box**(image: np.ndarray, box: Tuple[int, int, int, int]) -> np.ndarray:
 This method highlights a box region in an image by turning the rest of the image to black.
 
 ## Contributing
