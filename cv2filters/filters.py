@@ -177,7 +177,11 @@ class Filters:
             raise ValueError("Input 'image' must be a NumPy array.")
 
         try:
-            grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            #grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            if len(image.shape) == 3:
+                grayscale_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            else:
+                grayscale_image = image
             return grayscale_image
         except cv2.error as e:
             raise ValueError(f"OpenCV error: {str(e)}")
@@ -467,9 +471,45 @@ class Filters:
             np.ndarray: The histogram-corrected image as a NumPy array.
         """
         try:
-            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            # gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            if len(image.shape) == 3:
+                gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            else:
+                gray_image = image
             equalized_image = cv2.equalizeHist(gray_image)
             return equalized_image
         except cv2.error as e:
             raise ValueError(f"OpenCV error: {str(e)}")
-        
+
+    @staticmethod
+    def pencil(image: np.ndarray) -> np.ndarray:
+        """
+        Apply a pencil sketch effect to the image.
+
+        Args:
+            image (np.ndarray): The input image as a NumPy array.
+
+        Returns:
+            np.ndarray: The image with a pencil sketch effect applied, as a NumPy array.
+        """
+        try:
+            if len(image.shape) == 3:
+                gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            else:
+                gray_image = image
+
+            kernel_size = 5  
+            kernel = np.ones((kernel_size, kernel_size),
+                                np.float32) / (kernel_size * kernel_size)
+            blurred_image = cv2.filter2D(gray_image, -1, kernel)  
+
+
+            pencil_image = cv2.divide(gray_image, blurred_image, scale=255)
+
+
+            if len(image.shape) == 3:
+                        pencil_image = cv2.cvtColor(pencil_image, cv2.COLOR_GRAY2BGR)
+            
+            return pencil_image
+        except cv2.error as e:
+            raise ValueError(f"OpenCV error: {str(e)}")
