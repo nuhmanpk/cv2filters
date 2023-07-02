@@ -437,3 +437,39 @@ class Filters:
                 "Invalid segmentation method. Supported methods are 'simple_thresholding' and 'adaptive_thresholding'.")
 
         return segmented_image
+
+    @staticmethod
+    def image_negative(image: np.ndarray) -> np.ndarray:
+        """
+        Compute the negative of an image.
+
+        Args:
+            image (np.ndarray): The input image as a NumPy array.
+
+        Returns:
+            np.ndarray: The negative image as a NumPy array.
+        """
+        try:
+            negative_image = 255 - image
+            return negative_image
+        except cv2.error as e:
+            raise ValueError(f"OpenCV error: {str(e)}")
+
+    @staticmethod
+    def histogram_correction(image: np.ndarray) -> np.ndarray:
+        """
+        Apply histogram correction to the image.
+
+        Args:
+            image (np.ndarray): The input image as a NumPy array.
+
+        Returns:
+            np.ndarray: The histogram-corrected image as a NumPy array.
+        """
+        try:
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            equalized_image = cv2.equalizeHist(gray_image)
+            return equalized_image
+        except cv2.error as e:
+            raise ValueError(f"OpenCV error: {str(e)}")
+        
