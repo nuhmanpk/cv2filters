@@ -1,9 +1,4 @@
 # CV2Filters
-
-CV2Filters a powerful Python package designed as a wrapper around OpenCV, the popular open-source computer vision library. cv2Filters simplifies image processing tasks by providing a higher-level abstraction of the underlying OpenCV functionality. This package aims to make image processing more accessible to both beginner and advanced users, enabling them to efficiently perform a wide range of image manipulation and analysis tasks
-
-CV2Filters empowers users to harness the power of OpenCV in a simplified and intuitive manner. By abstracting away the complexities, the package enables a broader audience to explore image processing, drive innovation, and unlock new possibilities in the field of computer vision.
-
 [![Downloads](https://static.pepy.tech/personalized-badge/cv2filters?period=total&units=international_system&left_color=grey&right_color=yellow&left_text=Total-Downloads)](https://pepy.tech/project/cv2filters)
 ![PyPI - Format](https://img.shields.io/pypi/format/cv2filters)
 [![GitHub license](https://img.shields.io/github/license/nuhmanpk/cv2filters.svg)](https://github.com/nuhmanpk/cv2filters/blob/main/LICENSE)
@@ -12,6 +7,14 @@ CV2Filters empowers users to harness the power of OpenCV in a simplified and int
 ![PyPI](https://img.shields.io/pypi/v/cv2filters)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/cv2filters)
 [![Downloads](https://static.pepy.tech/personalized-badge/cv2filters?period=week&units=international_system&left_color=grey&right_color=brightgreen&left_text=Downloads/Week)](https://pepy.tech/project/cv2filters)
+
+CV2Filters a powerful Python package designed as a wrapper around OpenCV, the popular open-source computer vision library. cv2Filters simplifies image processing tasks by providing a higher-level abstraction of the underlying OpenCV functionality. This package aims to make image processing more accessible to both beginner and advanced users, enabling them to efficiently perform a wide range of image manipulation and analysis tasks
+
+CV2Filters empowers users to harness the power of OpenCV in a simplified and intuitive manner. By abstracting away the complexities, the package enables a broader audience to explore image processing, drive innovation, and unlock new possibilities in the field of computer vision.
+
+<a href='https://pypi.org/project/cv2filters'><img src='demo.gif'></a>
+<h6>Photo by <a href="https://unsplash.com/@sooprun?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alex Suprun</a> on <a href="https://unsplash.com/photos/ZHvM3XIOHoE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></h6>
+
 
 ## Installation
 
@@ -42,9 +45,10 @@ Create an instance of the Filters class and then call the desired methods on the
 from cv2filters import Filters
 # Create an instance of the Filters class
 filters = Filters()
+import cv2
 
 # Read an image
-image = filters.read_image('path_to_image.jpg') # Provide exact path here eg: /usr/home/desktop/image.jpg
+cv2.imread('./path-to-img.jpg)
 
 # Increase brightness of the image
 brightened_image = filters.increase_brightness(image,value=10)
@@ -96,7 +100,7 @@ highlighted_image = filters.highlight_box(image, (x, y, width, height))
 ```
 
 * Make sure to replace 'path_to_image.jpg' with the actual path to the image file you want to process, and adjust the method arguments as needed.
-
+  
 ## Methods
 
 1. **read_image**(file_path: str) -> np.ndarray:
