@@ -7,7 +7,7 @@ README = (file / "README.md").read_text()
 
 setuptools.setup(
     name="cv2filters",
-    version="0.2.1",
+    version="0.2.2",
     author="Nuhman Pk",
     author_email="nuhmanpk7@gmail.com",
     long_description = README,
