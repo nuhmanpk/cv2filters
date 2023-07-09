@@ -1,6 +1,7 @@
 from typing import Tuple
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 import os
 
 
@@ -513,3 +514,170 @@ class Filters:
             return pencil_image
         except cv2.error as e:
             raise ValueError(f"OpenCV error: {str(e)}")
+
+    @staticmethod
+    def cartoon(image: np.ndarray, resize_width: int = 960, resize_height: int = 540) -> np.ndarray:
+        """
+            Apply a cartoon effect to an image.
+            Fork from https://github.com/sachinkumar95/cartoon-image-filter
+            Args:
+                image (np.ndarray): The input image as a NumPy array.
+                resize_width (int): The width to resize the image to before applying the effect. Default is 960.
+                resize_height (int): The height to resize the image to before applying the effect. Default is 540.
+
+            Returns:
+                np.ndarray: The image with a cartoon effect applied, as a NumPy array.
+        """
+        try:
+            # https://github.com/sachinkumar95/cartoon-image-filter
+
+            resized1 = cv2.resize(image, (resize_width, resize_height))
+
+            gray_image = cv2.cvtColor(resized1, cv2.COLOR_BGR2GRAY)
+            resized2 = cv2.resize(gray_image, (resize_width, resize_height))
+
+            smooth_gray_image = cv2.medianBlur(resized2, 5)
+            resized3 = cv2.resize(smooth_gray_image, (resize_width, resize_height))
+
+
+            edges = cv2.adaptiveThreshold(
+                smooth_gray_image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 9
+            )
+            resized4 = cv2.resize(edges, (resize_width, resize_height))
+
+
+            color_image = cv2.bilateralFilter(image, 9, 300, 300)
+            resized5 = cv2.resize(color_image, (resize_width, resize_height))
+
+            cartoon_image = cv2.bitwise_and(color_image, color_image, mask=edges)
+            resized6 = cv2.resize(cartoon_image, (resize_width, resize_height))
+
+            return resized6
+        except cv2.error as e:
+            raise ValueError(f"OpenCV error: {str(e)}")
+
+    @staticmethod      
+    def painting(image: np.ndarray, resize_width: int = 960, resize_height: int = 540,
+                bilateral_d: int = 10, bilateral_sigma_color: int = 20, bilateral_sigma_space: int = 30,
+                threshold_value: int = 100, threshold_max_value: int = 255) -> np.ndarray:
+        """
+        Apply a painting effect to an image.
+
+        Args:
+            image (np.ndarray): The input image as a NumPy array.
+            resize_width (int): The width to resize the image to before applying the effect. Default is 960.
+            resize_height (int): The height to resize the image to before applying the effect. Default is 540.
+            bilateral_d (int): Diameter of each pixel neighborhood for the bilateral filter. Default is 10.
+            bilateral_sigma_color (int): Standard deviation in the color space for the bilateral filter. Default is 20.
+            bilateral_sigma_space (int): Standard deviation in the coordinate space for the bilateral filter. Default is 30.
+            threshold_value (int): Threshold value for the adaptive thresholding. Default is 100.
+            threshold_max_value (int): Maximum value for the adaptive thresholding. Default is 255.
+
+        Returns:
+            np.ndarray: The image with a painting effect applied, as a NumPy array.
+        """
+        try:
+            # Resize image
+            resized_image = cv2.resize(image, (resize_width, resize_height))
+
+            # Convert to grayscale
+            if len(resized_image.shape) == 3:
+                gray_image = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
+            else:
+                gray_image = resized_image
+
+            # Apply bilateral filter for smoothing and edge preservation
+            filtered_image = cv2.bilateralFilter(gray_image, bilateral_d, bilateral_sigma_color, bilateral_sigma_space)
+
+            # Apply adaptive thresholding to create a binary image
+            _, thresholded_image = cv2.threshold(filtered_image, threshold_value, threshold_max_value, cv2.THRESH_BINARY)
+
+            # Convert binary image to RGB
+            thresholded_image = cv2.cvtColor(thresholded_image, cv2.COLOR_GRAY2BGR)
+
+            return thresholded_image
+        except cv2.error as e:
+            raise ValueError(f"OpenCV error: {str(e)}")
+
+    @staticmethod
+    def color_distribution(image: np.ndarray) -> np.ndarray:
+        """
+        Display the color distribution of an image using a histogram.
+
+        Args:
+            image (np.ndarray): The input image as a NumPy array.
+
+        Returns:
+            np.ndarray: The histogram image as a NumPy array.
+        """
+        try:
+            # Convert image to RGB if it has a single channel
+            if len(image.shape) == 2:
+                image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
+
+            # Split image into separate channels
+            b, g, r = cv2.split(image)
+
+            # Calculate color histograms for each channel
+            hist_b = cv2.calcHist([b], [0], None, [256], [0, 256])
+            hist_g = cv2.calcHist([g], [0], None, [256], [0, 256])
+            hist_r = cv2.calcHist([r], [0], None, [256], [0, 256])
+
+            # Create figure and axes
+            fig, ax = plt.subplots()
+
+            # Plot color histograms for each channel
+            ax.plot(hist_b, color='blue', label='Blue')
+            ax.plot(hist_g, color='green', label='Green')
+            ax.plot(hist_r, color='red', label='Red')
+
+            # Set labels and title
+            ax.set_xlabel('Pixel Intensity')
+            ax.set_ylabel('Frequency')
+            ax.set_title('Color Distribution')
+
+            # Add legend
+            ax.legend()
+
+            # Convert the plot to a NumPy array
+            fig.canvas.draw()
+            histogram_image = np.array(fig.canvas.renderer.buffer_rgba())
+
+            # Close the plot to free up resources
+            plt.close(fig)
+
+            return histogram_image
+
+        except Exception as e:
+            raise ValueError(f"Error displaying color distribution: {str(e)}")
+
+    @staticmethod
+    def histogram(image: np.ndarray) -> np.ndarray:
+        """
+        Display the histogram of an image using matplotlib.pyplot.
+
+        Args:
+            image (np.ndarray): The input image as a NumPy array.
+
+        Returns:
+            np.ndarray: The histogram image as a NumPy array.
+        """
+        try:
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            hist = cv2.calcHist([gray_image], [0], None, [256], [0, 256])
+
+            plt.plot(hist)
+            plt.xlabel('Pixel Intensity')
+            plt.ylabel('Frequency')
+            plt.title('Histogram')
+
+            fig = plt.gcf()
+            fig.canvas.draw()
+            histogram_image = np.array(fig.canvas.renderer.buffer_rgba())
+
+            plt.close(fig)
+
+            return histogram_image
+
+        except Exception as e:
+            raise ValueError(f"Error displaying histogram: {str(e)}")

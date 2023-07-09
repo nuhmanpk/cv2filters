@@ -12,8 +12,8 @@ CV2Filters a powerful Python package designed as a wrapper around OpenCV, the po
 
 CV2Filters empowers users to harness the power of OpenCV in a simplified and intuitive manner. By abstracting away the complexities, the package enables a broader audience to explore image processing, drive innovation, and unlock new possibilities in the field of computer vision.
 
-<a href='https://pypi.org/project/cv2filters'><img src='https://github.com/nuhmanpk/cv2filters/blob/a334cf4b4cd1e3e21d043d3d0fa1dbed70a4c6d2/demo.gif'></a>
-<h6>Photo by <a href="https://unsplash.com/@sooprun?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alex Suprun</a> on <a href="https://unsplash.com/photos/ZHvM3XIOHoE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></h6>
+[![Demo](https://raw.githubusercontent.com/nuhmanpk/cv2filters/a334cf4b4cd1e3e21d043d3d0fa1dbed70a4c6d2/demo.gif)](https://pypi.org/project/cv2filters)
+<h6>Photo by [Alex Suprun](https://unsplash.com/@sooprun?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/ZHvM3XIOHoE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)</h6>
 
 
 ## Installation

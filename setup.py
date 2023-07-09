@@ -7,7 +7,7 @@ README = (file / "README.md").read_text()
 
 setuptools.setup(
     name="cv2filters",
-    version="0.2.2",
+    version="0.2.3",
     author="Nuhman Pk",
     author_email="nuhmanpk7@gmail.com",
     long_description = README,
@@ -26,7 +26,8 @@ setuptools.setup(
     ],
     packages=setuptools.find_packages(include=['cv2filters']),  
     install_requires=[
-        'opencv_python'
+        'opencv_python',
+        'matplotlib'
     ],
     
     python_requires=">=3.6",
