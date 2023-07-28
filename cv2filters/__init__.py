@@ -1,3 +1,4 @@
-from .filters import Filters
+from .image_filters import ImageFilters
+from .video_filters import VideoFilters
 
-__all__ = ['Filters']
+__all__ = ['ImageFilters','VideoFilters']

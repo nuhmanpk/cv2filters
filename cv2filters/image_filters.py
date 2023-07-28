@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 
 
-class Filters:
+class ImageFilters:
     @staticmethod
     def read_image(file_path: str) -> np.ndarray:
         """
@@ -681,3 +681,267 @@ class Filters:
 
         except Exception as e:
             raise ValueError(f"Error displaying histogram: {str(e)}")
+
+    @staticmethod
+    def detect_face(image: np.ndarray) -> Optional[np.ndarray]:
+        """
+        Detect frontal faces in the input image.
+
+        Args:
+            image (np.ndarray): The input image as a NumPy array.
+
+        Returns:
+            Optional[np.ndarray]: The region of interest (ROI) containing the detected face, or None if no face is detected or an error occurs.
+        """
+        try:
+            # Load the pre-trained Haar Cascade for frontal face detection
+            face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+            # Read the image if it's a file path
+            if isinstance(image, str):
+                image = cv2.imread(image)
+
+            # Convert the image to grayscale for face detection
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            # Detect faces in the image
+            faces = face_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            if len(faces) > 0:
+                # Assuming only one face is detected, return the region of interest (ROI) containing the face
+                (x, y, w, h) = faces[0]
+                face_roi = image[y:y + h, x:x + w]
+                return face_roi
+            else:
+                # No face detected, return None
+                return None
+
+        except cv2.error as e:
+            print(f"OpenCV error in detect_frontal_face: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_frontal_face: {str(e)}")
+            return None
+
+    @staticmethod
+    def detect_eyes(image: np.ndarray) -> np.ndarray:
+        """
+        Detect eyes in the input image and draw rectangles around them.
+
+        Args:
+            image (np.ndarray): The input image as a NumPy array.
+
+        Returns:
+            np.ndarray: The input image with rectangles drawn around the detected eyes.
+        """
+        try:
+            # Load the pre-trained Haar Cascade for eye detection
+            eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            eyes = eye_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            # Draw rectangles around the eyes
+            for (x, y, w, h) in eyes:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+            return image
+        except cv2.error as e:
+            print(f"OpenCV error in detect_frontal_face: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_frontal_face: {str(e)}")
+            return None
+        
+    @staticmethod
+    def detect_eyeglasses(image: np.ndarray) -> np.ndarray:
+        try:
+            # Load the pre-trained Haar Cascade for eye detection
+            eye_glass = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye_tree_eyeglasses.xml')
+
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            eyes = eye_glass.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            # Draw rectangles around the eyes
+            for (x, y, w, h) in eyes:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            
+            # handle returning x, y, w, h in future
+            return image
+        except cv2.error as e:
+            print(f"OpenCV error in detect_frontal_face: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_frontal_face: {str(e)}")
+            return None
+    
+    @staticmethod
+    def detect_fullbody(image: np.ndarray) -> np.ndarray:
+        try:
+            fullbody = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fullbody.xml')
+
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+
+            body = fullbody.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            # Draw rectangles around the body
+            for (x, y, w, h) in body:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            
+            # handle returning x, y, w, h in future
+            return image
+        except cv2.error as e:
+            print(f"OpenCV error in detect_frontal_face: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_frontal_face: {str(e)}")
+            return None
+    
+    @staticmethod
+    def detect_lefteye(image: np.ndarray) -> np.ndarray:
+        try:
+            lefteye = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_lefteye_2splits.xml')
+
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            eyes = lefteye.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            # Draw rectangles around the eyes
+            for (x, y, w, h) in eyes:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            
+            # handle returning x, y, w, h in future
+            return image
+        except cv2.error as e:
+            print(f"OpenCV error in detect_frontal_face: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_frontal_face: {str(e)}")
+            return None
+
+    @staticmethod
+    def detect_righteye(image: np.ndarray) -> np.ndarray:
+        try:
+            righteye = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_righteye_2splits.xml')
+
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            eyes = righteye.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            # Draw rectangles around the eyes
+            for (x, y, w, h) in eyes:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            
+            # handle returning x, y, w, h in future
+            return image
+        except cv2.error as e:
+            print(f"OpenCV error in detect_frontal_face: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_frontal_face: {str(e)}")
+            return None
+
+    @staticmethod
+    def detect_lowerbody(image: np.ndarray) -> np.ndarray:
+        try:
+            lowerbody = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_lowerbody.xml')
+
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            body = lowerbody.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            # Draw rectangles around the body
+            for (x, y, w, h) in body:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            
+            # handle returning x, y, w, h in future
+            return image
+        except cv2.error as e:
+            print(f"OpenCV error in detect_frontal_face: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_frontal_face: {str(e)}")
+            return None
+
+    @staticmethod
+    def detect_profile_face(image: np.ndarray) -> np.ndarray:
+        try:
+
+            profileface = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_profileface.xml')
+
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            profileface = profileface.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            # Draw rectangles around the body
+            for (x, y, w, h) in body:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            
+            # handle returning x, y, w, h in future
+            return image
+        except cv2.error as e:
+            print(f"OpenCV error in detect_frontal_face: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_frontal_face: {str(e)}")
+            return None
+
+    @staticmethod
+    def detect_smile(image: np.ndarray) -> np.ndarray:
+        try:
+            smile = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_smile.xml')
+
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            smile = smile.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            # Draw rectangles around the body
+            for (x, y, w, h) in body:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            
+            # handle returning x, y, w, h in future
+            return image
+        except cv2.error as e:
+            print(f"OpenCV error in detect_frontal_face: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_frontal_face: {str(e)}")
+            return None
+
+    @staticmethod
+    def detect_pedestrians(image: np.ndarray) -> np.ndarray:
+        try:
+            # Load the pre-trained Haar-like cascade classifier for pedestrian detection
+            pedestrian_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'hogcascade_pedestrians.xml')
+
+            # Convert the image to grayscale
+            gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+            # Detect pedestrians in the image
+            pedestrians = pedestrian_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+            # Draw rectangles around the detected pedestrians
+            for (x, y, w, h) in pedestrians:
+                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+            return image
+
+        except cv2.error as e:
+            print(f"OpenCV error in detect_pedestrians: {str(e)}")
+            return None
+
+        except Exception as e:
+            print(f"Error in detect_pedestrians: {str(e)}")
+            return None
