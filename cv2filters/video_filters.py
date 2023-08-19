@@ -5,7 +5,7 @@ from .image_filters import ImageFilters
 
 class VideoFilters:
     @staticmethod
-    def preview_webcam(filter_function: Callable[[Any], Any] = None, display_stats: bool = False) -> None:
+    def preview_webcam(filter_function: Callable[[Any], Any] = None, display_stats: bool = False, save:bool = False, output_filename : str = "output_video.mp4") -> None:
         """
         Preview the live video feed from the webcam with an optional specified filter applied.
 
@@ -19,13 +19,18 @@ class VideoFilters:
             # Start video capture
             cap = cv2.VideoCapture(0)
 
+
             # Get the frame width and height
             frame_width = int(cap.get(3))
             frame_height = int(cap.get(4))
 
-            # Define the codec and create VideoWriter object
-            fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            out = cv2.VideoWriter("output_video.avi", fourcc, 20.0, (frame_width, frame_height))
+            if save:
+                # Define the codec and create VideoWriter object
+                fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+                out = cv2.VideoWriter(output_filename, fourcc, 20.0, (frame_width, frame_height))
+
+            else:
+                out = None
 
             prev_time = time.time()
             fps_counter = 0
@@ -60,8 +65,9 @@ class VideoFilters:
                 # Show the filtered frame in a live preview
                 cv2.imshow("Video Preview", filtered_frame)
 
-                # Write the frame to the output video file
-                out.write(filtered_frame)
+                if save:
+                    # Write the frame to the output video file
+                    out.write(filtered_frame)
 
                 # Stop the live preview when 'q' key is pressed
                 if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -131,7 +137,7 @@ class VideoFilters:
             raise ValueError(f"Error during video save: {str(e)}")
 
     @staticmethod
-    def apply_haarcascade_eye(video: str, filter_function: Any = None, save_video: bool = False, output_path: str = "output_video.avi", output_fps: float = 25.0) -> None:
+    def apply_haarcascade_eye(video: str, filter_function: Any = None, save_video: bool = True, output_path: str = "output_video.mp4", output_fps: float = 25.0,  display_stats: bool = False) -> None:
         """
         Apply Haar Cascade for detecting eyes in the live video feed from the webcam or from a video file.
 
@@ -155,8 +161,8 @@ class VideoFilters:
                 cap = cv2.VideoCapture(0)
 
             # Get the video frame size and frame rate
-            frame_width = int(cap.get(3))
-            frame_height = int(cap.get(4))
+            frame_width = int(cap.get(3)/100)
+            frame_height = int(cap.get(4)/100)
 
             # Define the codec and create VideoWriter object if save_video is True
             out = None

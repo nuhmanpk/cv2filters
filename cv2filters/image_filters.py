@@ -683,7 +683,7 @@ class ImageFilters:
             raise ValueError(f"Error displaying histogram: {str(e)}")
 
     @staticmethod
-    def detect_face(image: np.ndarray) -> Optional[np.ndarray]:
+    def crop_face(image: np.ndarray) -> [np.ndarray]:
         """
         Detect frontal faces in the input image.
 
