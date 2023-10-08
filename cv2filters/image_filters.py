@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 
 
-class ImageFilters:
+class Filters:
     @staticmethod
     def read_image(file_path: str) -> np.ndarray:
         """

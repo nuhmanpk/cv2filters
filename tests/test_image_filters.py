@@ -2,7 +2,7 @@ import unittest
 import cv2
 import os
 
-from cv2filters.image_filters import ImageFilters
+from cv2filters.image_filters import Filters
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 image_path = os.path.join(script_dir, 'src', 'albert-dera-ILip77SbmOE-unsplash.jpg')
@@ -10,7 +10,7 @@ image = cv2.imread(image_path)
 
 class TestImageFilters(unittest.TestCase):
     def setUp(self):
-        self.filters = ImageFilters()
+        self.filters = Filters()
     def test_filters(self):
         
         #Apply filter Here
