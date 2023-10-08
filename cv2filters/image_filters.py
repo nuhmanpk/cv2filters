@@ -61,6 +61,14 @@ class Filters:
     @staticmethod
     def blur(image: np.ndarray, kernal_size: tuple = (5, 5)) -> np.ndarray:
         """
+        Add blur to an image.
+
+        Args:
+            image (np.ndarray): The input image as a NumPy array.
+            kernal_size (tuple, required): The value to of kernal to be appiled as blur (Must be odd numbers). Default is (5,5).
+
+        Returns:
+            np.ndarray: The brightened image as a NumPy array.
         """
         if not isinstance(kernal_size, tuple) or len(kernal_size) != 2:
             raise ValueError('Kernal size must me a tuple of two intergers.')
