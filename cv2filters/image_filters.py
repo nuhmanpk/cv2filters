@@ -84,7 +84,7 @@ class Filters:
             np.ndarray: The rotated image as a NumPy array.
         """
         if not isinstance(image, np.ndarray):
-            raise ValueError("Input 'image' must be a NumPy array.")
+            raise ValueError("Input image must be a NumPy array.")
 
         try:
             rows, cols = image.shape[:2]
