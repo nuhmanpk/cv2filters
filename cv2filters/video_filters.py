@@ -1,7 +1,7 @@
 import cv2
 from typing import Any, Callable, Tuple
 import time
-from .image_filters import ImageFilters
+from .image_filters import Filters
 
 class VideoFilters:
     @staticmethod
@@ -150,7 +150,7 @@ class VideoFilters:
             output_fps (float, optional): The frame rate of the output video. Default is 25.0.
         """
         # Use the provided filter function or default filter function
-        filter_function = filter_function or ImageFilters.detect_eyes
+        filter_function = filter_function or Filters.detect_eyes
 
         try:
             if video:
