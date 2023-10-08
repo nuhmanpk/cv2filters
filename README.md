@@ -46,7 +46,7 @@ filters = Filters()
 import cv2
 
 # Read an image
-cv2.imread('./path-to-img.jpg)
+cv2.imread('./path-to-img.jpg')
 
 # Increase brightness of the image
 brightened_image = filters.increase_brightness(image,value=10)
@@ -151,6 +151,15 @@ This method applies morphological closing to an image to close small holes.
 
 17. **highlight_box**(image: np.ndarray, box: Tuple[int, int, int, int]) -> np.ndarray:
 This method highlights a box region in an image by turning the rest of the image to black.
+
+## For testing 
+
+```bash
+
+python -m unittest tests.test_image_filters
+
+
+```
 
 ## Contributing
 
